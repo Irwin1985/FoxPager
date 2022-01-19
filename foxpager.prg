@@ -13,8 +13,8 @@ define class foxPager as session
 	hidden nCurrentPage
 	hidden nMinRow
 	hidden nMaxRow
-	hidden oEventHandler
-	hidden cDelegateEvent
+	hidden oCaller
+	hidden cCallBack
 	hidden cResultName
 	cLastErrorText = ''
 	sendDelegateParams = .f.
@@ -28,8 +28,8 @@ define class foxPager as session
 			.nCurrentPage = 0
 			.nMinRow = 0
 			.nMaxRow = 0
-			.oEventHandler = .null.
-			.cDelegateEvent = ''
+			.oCaller = .null.
+			.cCallBack = ''
 			.cResultName = 'cResult'
 		endwith
 	endfunc
@@ -57,12 +57,12 @@ define class foxPager as session
 		set datasession to (this.nDataSessionID)
 	endfunc
 
-	function setEventHandler(toEventHandler)
-		this.oEventHandler = toEventHandler
+	function setCaller(toCaller)
+		this.oCaller = toCaller
 	endfunc
 
-	function setDelegateEvent(tcDelegateEvent)
-		this.cDelegateEvent = tcDelegateEvent
+	function setCallBack(tcCallBack)
+		this.cCallBack = tcCallBack
 	endfunc
 	
 	function setResultName(tcResultName)
@@ -70,7 +70,7 @@ define class foxPager as session
 	endfunc
 
 	function run
-		if empty(this.cDelegateEvent)
+		if empty(this.cCallBack)
 			wait "before running you must provide a delegate event." window nowait
 		endif
 		do while this.hasNext()
@@ -82,12 +82,12 @@ define class foxPager as session
 		return this.nCurrentPage <= this.nTotalPages
 	endfunc
 
-	function next(toEventHandler, tcDelegateEvent, tlSendParams)
-		if empty(tcDelegateEvent)
-			if empty(this.cDelegateEvent)
+	function next(toCaller, tcCallBack, tlSendParams)
+		if empty(tcCallBack)
+			if empty(this.cCallBack)
 				wait "Ivalid delegate event name." window nowait
 			endif
-			tcDelegateEvent = this.cDelegateEvent
+			tcCallBack = this.cCallBack
 		endif
 		if pcount() <= 2
 			tlSendParams = this.sendDelegateParams
@@ -96,12 +96,12 @@ define class foxPager as session
 			local loEx as exception, loCaller as object, lcCommand as string
 			this.updateRowProperties()
 			select * from (this.cCursorName) where between(recno(), this.nMinRow, this.nMaxRow) into cursor (this.cResultName)
-			loCaller = iif(type('toEventHandler') = 'O', toEventHandler, iif(!isnull(this.oEventHandler), this.oEventHandler, .null.))
+			loCaller = iif(type('toCaller') = 'O', toCaller, iif(!isnull(this.oCaller), this.oCaller, .null.))
 			if isnull(loCaller)
 				wait "Invalid handler." window nowait
 				return
 			endif
-			lcCommand = tcDelegateEvent
+			lcCommand = tcCallBack
 			if type('loCaller') = 'O'
 				lcCommand = "loCaller." + lcCommand
 			endif
