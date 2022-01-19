@@ -17,7 +17,7 @@ define class foxPager as session
 	hidden cCallBack
 	hidden cResultName
 	cLastErrorText = ''
-	sendDelegateParams = .f.
+	sendParams = .f.
 
 	function init(tcCursorName, tnPageRange, tnSessionID)
 		with this
@@ -90,7 +90,7 @@ define class foxPager as session
 			tcCallBack = this.cCallBack
 		endif
 		if pcount() <= 2
-			tlSendParams = this.sendDelegateParams
+			tlSendParams = this.sendParams
 		endif
 		try
 			local loEx as exception, loCaller as object, lcCommand as string
