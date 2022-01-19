@@ -3,11 +3,11 @@ Paginador flexible para tratamientos de datos en bloques. Lo `flexible` viene de
 
 ## Propiedades y Métodos
 
-- **sendDelegateParams** es una propiedad boolean que le indica a `FoxPager` que el `callback` recibirá 2 parámetros: **nMinRow** y **nMaxRow**. Por ejemplo 1 y 5 indicando que el bloque actual comprende el registro 1 hasta el registro 5.
+- **sendParams** es una propiedad boolean que le indica a `FoxPager` que el `callback` recibirá 2 parámetros: **nMinRow** y **nMaxRow**. Por ejemplo 1 y 5 indicando que el bloque actual comprende el registro 1 hasta el registro 5.
 - **setPageRange(tnRange)** ajusta el número de registros por página. Por defecto es 5.
 - **setCursorName(tcName)** es el nombre del cursor base desde donde se obtendrán los datos.
 - **setDataSessionID(tnSessionID)** si usas sesiones privadas entonces tienes que indicarla aquí.
-- **setEventHandler(toHandler)** es el nombre del objeto que contiene el método que hará de `callback`. Si tienes un `PROCEDURE` entonces no es necesario setear este método.
+- **setCaller(toCaller)** es el nombre del objeto que contiene el método que hará de `callback`. Si tienes un `PROCEDURE` entonces no es necesario setear este método.
 - **setCallback(tcCallback)** es el nombre del procedimiento, método o evento que analizará el bloque de registros.
 - **setResultName(tcName)** es el nombre del cursor resultante, es decir, el cursor que contendrá los datos en cada bloque. Por defecto es `cResult`.
 
