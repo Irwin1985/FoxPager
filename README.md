@@ -15,7 +15,7 @@ Paginador flexible para tratamientos de datos en bloques. Lo `flexible` viene de
 ## Ejemplos
 Supongamos que tienes un cursor `Clientes` con 100.000 registros y quieres darle tratamiento por bloques.
 
-# Uso 1: callback desde un procedure
+## Uso 1: callback desde un procedure
 
 ```xBase
    // 1. declarar la librería
@@ -45,7 +45,7 @@ Supongamos que tienes un cursor `Clientes` con 100.000 registros y quieres darle
    ENDPROC
 ```
 
-# Uso 2: callback desde un objeto instanciado
+## Uso 2: callback desde un objeto instanciado
 
 ```xBase
    // 0. creo la instancia de `miClase`
@@ -66,7 +66,7 @@ Supongamos que tienes un cursor `Clientes` con 100.000 registros y quieres darle
    // 7. setCallback => nombre del método que se encargará de analizar los registros.
    oFoxPager.setCallback("analizarClientes")
    // 8. quieres darle un nombre personalizado al cursor resultante? entonces dícelo a FoxPager
-   oFoxPager.setResultName('BloqueClientes')
+   oFoxPager.setResultName('listaClientes')
    // 9. lanzar el paginador
    oFoxPager.run()
    
